@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="48e65e88-2bbc-42ae-88f2-0f686bd163aa" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="bdf874c5-9bdb-49a7-8cdc-13b96adb17c2" file="dev.yaml" />
+	<flow name="cicd-cloud-apiFlow" doc:id="da8a82dd-a5bb-49eb-9b96-a120adb46756" >
+		<http:listener doc:name="Listener" doc:id="3c8bf762-7235-498c-bfab-b57c55cb9671" config-ref="HTTP_Listener_config" path="/cicd"/>
+		<logger level="INFO" doc:name="Logger" doc:id="280748b4-47de-4937-9652-1a18465cc41f" message="-------------flow-invoked--------------"/>
+		<set-variable value="#[attributes.queryParams.name]" doc:name="name" doc:id="7998486a-54bc-4f60-b9b4-539efd0e5b9c" variableName="name"/>
+		<ee:transform doc:name="Transform Message" doc:id="c7ab8c8d-fc06-4b19-8bc8-063fdfee9067" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Hello " ++ vars.name ++ " Welcome to Mulesoft world!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="61548a05-594e-4ec2-8ab0-39a500826aa7" message="------------cicd-cloud-api-ended-----------"/>
+	</flow>
+</mule>
