@@ -23,6 +23,6 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="61548a05-594e-4ec2-8ab0-39a500826aa7" message="------------cicd-cloud-api-ended-----------"/>
+		<logger level="INFO" doc:name="Logger" doc:id="61548a05-594e-4ec2-8ab0-39a500826aa7" message="------------cicd-cloud-api-flow ended successfully-----------"/>
 	</flow>
 </mule>
