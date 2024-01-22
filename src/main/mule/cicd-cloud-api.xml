@@ -19,7 +19,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"message": "Hello " ++ vars.name ++ " Welcome to Mulesoft world!"
+	"message": "Hello " ++ vars.name ++ " Welcome to Mulesoft world and Thanks for choosing Mulesoft!"
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
